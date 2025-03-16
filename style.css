@@ -1,0 +1,51 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.event-container {
+  grid-template-columns: repeat(1, 1fr);
+
+  @media screen and (min-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media screen and (min-width: 1024px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media screen and (min-width: 1440px) {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+.create-event-container {
+  @media screen and (min-width: 768px) {
+    width: 50%;
+  }
+}
+
+#register-form {
+  @media screen and (min-width: 768px) {
+    width: 50%;
+  }
+
+  @media screen and (min-width: 1440px) {
+    width: 25%;
+  }
+}
+
+#feedback-form-section {
+  @media screen and (min-width: 768px) {
+    width: 50%;
+  }
+}
+
+.break-word {
+  word-wrap: break-word;
+}
+
+.checked {
+  color: orange;
+}
