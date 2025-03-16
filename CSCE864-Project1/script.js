@@ -1,4 +1,4 @@
-if (location.pathname === "/index.html") {
+if (location.pathname.includes("index.html")) {
   document.addEventListener("DOMContentLoaded", function () {
     const eventContainer = document.getElementById("event-container");
     const regEventContainer = document.getElementById("reg-event-container");
@@ -93,7 +93,7 @@ if (location.pathname === "/index.html") {
   });
 }
 
-if (location.pathname === "/createEvent.html") {
+if (location.pathname.includes("createEvent.html")) {
   document
     .getElementById("event-form")
     ?.addEventListener("submit", function (e) {
@@ -126,7 +126,7 @@ if (location.pathname === "/createEvent.html") {
     });
 }
 
-if (location.pathname.includes("/event.html")) {
+if (location.pathname.includes("event.html")) {
   document.addEventListener("DOMContentLoaded", function () {
     let params = new URLSearchParams(window.location.search);
     let eventId = params.get("id");
@@ -178,7 +178,7 @@ if (location.pathname.includes("/event.html")) {
     });
 }
 
-if (location.pathname.includes("/feedback.html")) {
+if (location.pathname.includes("feedback.html")) {
   const ratingContainer = document.querySelector(".rating-container");
   let rating = 0;
   document
