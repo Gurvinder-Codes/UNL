@@ -10,7 +10,7 @@ if (location.pathname.includes("index.html")) {
       eventContainer.classList.remove("d-grid", "gap-2", "event-container");
 
       if (events.length === 0) {
-        eventContainer.innerText = "No events scheduled";
+        eventContainer.innerHTML = `<p class="text-center">No events scheduled</p>`;
         return;
       }
 
@@ -40,14 +40,14 @@ if (location.pathname.includes("index.html")) {
 
     function displayRegisteredEvents() {
       const regEventIds =
-        JSON.parse(localStorage.getItem("registrations")).map((event) =>
+        JSON.parse(localStorage.getItem("registrations"))?.map((event) =>
           parseInt(event.eventId)
         ) || [];
       const regEvents = events.filter((event) =>
         regEventIds.includes(event.id)
       );
       const feedbackEventIds =
-        JSON.parse(localStorage.getItem("feedback")).map((event) =>
+        JSON.parse(localStorage.getItem("feedback"))?.map((event) =>
           parseInt(event.eventId)
         ) || [];
 
