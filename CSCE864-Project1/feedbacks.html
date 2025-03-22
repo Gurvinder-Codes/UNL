@@ -10,27 +10,22 @@
       integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
       crossorigin="anonymous"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body class="text-bg-dark">
     <header
       class="d-flex justify-content-between align-items-center p-2 m-2 border rounded flex-wrap"
     >
-      <h1 class="h1">Event Management Platform</h1>
-      <div>
-        <a href="feedbacks.html" class="btn btn-primary">View Feedbacks</a>
-        <a href="createEvent.html" class="btn btn-primary">Create New Event</a>
-      </div>
+      <h1 class="h1">Feedbacks</h1>
+      <a href="index.html" class="btn btn-primary">Back to Home</a>
     </header>
 
-    <section id="events-list" class="m-2">
-      <h2 class="text-center fs-1 m-4">Registered Events</h2>
-      <div id="reg-event-container"></div>
-    </section>
-
-    <section id="events-list" class="m-2">
-      <h2 class="text-center fs-1 m-4">All Events</h2>
-      <div id="event-container"></div>
+    <section id="feedback-list" class="m-2">
+      <div id="feedback-container"></div>
     </section>
 
     <script src="script.js"></script>

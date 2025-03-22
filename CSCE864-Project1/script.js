@@ -208,3 +208,62 @@ if (location.pathname.includes("feedback.html")) {
       .map((el) => el.classList.add("checked"));
   }
 }
+
+if (location.pathname.includes("feedbacks.html")) {
+  document.addEventListener("DOMContentLoaded", function () {
+    const feedbackContainer = document.getElementById("feedback-container");
+    const feedbacks = JSON.parse(localStorage.getItem("feedback")) || [];
+
+    function displayFeedbacks() {
+      feedbackContainer.innerHTML = "";
+      feedbackContainer.classList.remove(
+        "d-grid",
+        "gap-2",
+        "feedback-container"
+      );
+
+      if (feedbacks.length === 0) {
+        feedbackContainer.innerHTML = `<p class="text-center mt-4">No Feedbacks provided yet</p>`;
+        return;
+      }
+
+      feedbackContainer.classList.add("d-grid", "gap-2", "feedback-container");
+      feedbacks.forEach((feedback) => {
+        let feedbackCard = document.createElement("div");
+        let event = JSON.parse(localStorage.getItem("events")).find(
+          (event) => event.id == feedback.eventId
+        );
+        feedbackCard.className = "card";
+        feedbackCard.innerHTML = `
+            <div class="card-body d-flex flex-column">
+                <h3 class="card-title">${feedback.name}</h3>
+                <p class="card-text mb-1"><strong>Event: </strong>${event.title}</p>
+                <p class="card-text mb-1"><strong>Rating: </strong> 
+                  <span class="rating-container-${feedback.eventId}">
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span>
+                  </span>
+                </p>
+                <p class="card-text mb-"><strong>Comment: </strong>${feedback.comment}</p>
+            </div>
+                `;
+        feedbackContainer.appendChild(feedbackCard);
+
+        function addRating() {
+          const ratingContainer = document.querySelector(
+            `.rating-container-${feedback.eventId}`
+          );
+          Array.from(ratingContainer.children)
+            .slice(0, feedback.rating)
+            .map((el) => el.classList.add("checked"));
+        }
+        addRating();
+      });
+    }
+
+    displayFeedbacks();
+  });
+}

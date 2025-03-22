@@ -4,7 +4,8 @@
   box-sizing: border-box;
 }
 
-.event-container {
+.event-container,
+.feedback-container {
   grid-template-columns: repeat(1, 1fr);
 
   @media screen and (min-width: 768px) {
