@@ -2,8 +2,18 @@ if (location.pathname.includes("index.html")) {
   document.addEventListener("DOMContentLoaded", function () {
     const eventContainer = document.getElementById("event-container");
     const regEventContainer = document.getElementById("reg-event-container");
-
-    const events = JSON.parse(localStorage.getItem("events")) || [];
+    const events =
+      JSON.parse(localStorage.getItem("events"))?.filter(
+        (event) => !event.isRegistered
+      ) || [];
+    const regEvents =
+      JSON.parse(localStorage.getItem("events"))?.filter(
+        (event) => event.isRegistered
+      ) || [];
+    const feedbackEventIds =
+      JSON.parse(localStorage.getItem("feedback"))?.map((event) =>
+        parseInt(event.eventId)
+      ) || [];
 
     function displayEvents() {
       eventContainer.innerHTML = "";
@@ -17,40 +27,22 @@ if (location.pathname.includes("index.html")) {
       eventContainer.classList.add("d-grid", "gap-2", "event-container");
       events.forEach((event) => {
         let eventCard = document.createElement("div");
-        eventCard.className = "card";
+        eventCard.className = "card border-0";
         eventCard.innerHTML = `
-            <div class="card-body d-flex flex-column gap-2 justify-content-between">
-                <div>
-                    <h3 class="card-title">${event.title}</h3>
-                    <p class="card-text">${event.date} | ${event.location}</p>
-                    <p class="card-text">${
-                      event.description.length > 100
-                        ? `${event.description.slice(0, 100)}...`
-                        : event.description
-                    }</p>
-                </div>
-                <a href="event.html?id=${
-                  event.id
-                }" class="btn btn-primary">View Details</a>
-            </div>
-                `;
+        <img class="event-img" src="${event.imageURL}" />
+        <div class="card-body d-flex flex-column gap-2 justify-content-between">
+          <div>
+            <h3 class="card-title">${event.title}</h3>
+            <p class="card-text">${event.date} | ${event.location}</p>
+            <p class="card-text event-description">${event.description}</p>
+          </div>
+          <a href="register.html?id=${event.id}" class="btn btn-primary">Register</a>
+        </div>`;
         eventContainer.appendChild(eventCard);
       });
     }
 
     function displayRegisteredEvents() {
-      const regEventIds =
-        JSON.parse(localStorage.getItem("registrations"))?.map((event) =>
-          parseInt(event.eventId)
-        ) || [];
-      const regEvents = events.filter((event) =>
-        regEventIds.includes(event.id)
-      );
-      const feedbackEventIds =
-        JSON.parse(localStorage.getItem("feedback"))?.map((event) =>
-          parseInt(event.eventId)
-        ) || [];
-
       regEventContainer.innerHTML = "";
       regEventContainer.classList.remove("d-grid", "gap-2", "event-container");
 
@@ -62,32 +54,24 @@ if (location.pathname.includes("index.html")) {
       regEventContainer.classList.add("d-grid", "gap-2", "event-container");
       regEvents.forEach((event) => {
         let eventCard = document.createElement("div");
-        eventCard.className = "card";
+        eventCard.className = "card border-0";
         eventCard.innerHTML = `
+            <img class="event-img" src="${event.imageURL}" />
             <div class="card-body d-flex flex-column gap-2 justify-content-between">
-                <div>
-                    <h3 class="card-title">${event.title}</h3>
-                    <p class="card-text">${event.date} | ${event.location}</p>
-                    <p class="card-text">${
-                      event.description.length > 100
-                        ? `${event.description.slice(0, 100)}...`
-                        : event.description
-                    }</p>
-                </div>
-                <a href="event.html?id=${
-                  event.id
-                }" class="btn btn-primary">View Details</a>
+              <div>
+                <h3 class="card-title">${event.title}</h3>
+                <p class="card-text">${event.date} | ${event.location}</p>
+                <p class="card-text event-description">${event.description}</p>
+              </div>
                 ${
                   feedbackEventIds.includes(event.id)
                     ? ""
                     : `<a href="feedback.html?id=${event.id}" class="btn btn-primary">Give Feedback</a>`
                 }
-            </div>
-                `;
+            </div>`;
         regEventContainer.appendChild(eventCard);
       });
     }
-
     displayEvents();
     displayRegisteredEvents();
   });
@@ -103,19 +87,22 @@ if (location.pathname.includes("createEvent.html")) {
       let date = document.getElementById("date").value;
       let location = document.getElementById("location").value;
       let description = document.getElementById("description").value;
+      let imageURL = document.getElementById("imageURL").value;
 
-      if (!title || !date || !location || !description) {
+      if (!title || !date || !location || !description || !imageURL) {
         alert("All fields are required!");
         return;
       }
 
-      let events = JSON.parse(localStorage.getItem("events")) || [];
-      let newEvent = {
+      const events = JSON.parse(localStorage.getItem("events")) || [];
+      const newEvent = {
         id: Date.now(),
         title,
         date,
         location,
         description,
+        imageURL,
+        isRegistered: false,
       };
 
       events.push(newEvent);
@@ -126,32 +113,21 @@ if (location.pathname.includes("createEvent.html")) {
     });
 }
 
-if (location.pathname.includes("event.html")) {
+if (location.pathname.includes("register.html")) {
   document.addEventListener("DOMContentLoaded", function () {
-    let params = new URLSearchParams(window.location.search);
-    let eventId = params.get("id");
-    let events = JSON.parse(localStorage.getItem("events")) || [];
-    let regEventIds =
-      JSON.parse(localStorage.getItem("registrations")).map(
-        (event) => event.eventId
-      ) || [];
-    let selectedEvent = events.find((event) => event.id == eventId);
-    let regFormSection = document.getElementById("register-form-section");
-    const isRegisteredEvent = regEventIds.includes(eventId);
+    const params = new URLSearchParams(window.location.search);
+    const eventId = params.get("id");
+    const events = JSON.parse(localStorage.getItem("events")) || [];
+    const selectedEvent = events.find((event) => event.id == eventId);
 
     if (selectedEvent) {
-      document.getElementById("event-title").innerText = selectedEvent.title;
-      document.getElementById("event-date").innerText = selectedEvent.date;
-      document.getElementById("event-location").innerText =
-        selectedEvent.location;
-      document.getElementById("event-description").innerText =
-        selectedEvent.description;
+      document.getElementById(
+        "event-title"
+      ).innerText = `Register for ${selectedEvent.title}`;
     } else {
-      document.getElementById("event-details").innerHTML =
-        "<p>Event not found.</p>";
+      alert("Event not found.");
+      window.location.href = "index.html";
     }
-
-    regFormSection.style.display = isRegisteredEvent ? "none" : "block";
   });
 
   document
@@ -159,20 +135,21 @@ if (location.pathname.includes("event.html")) {
     .addEventListener("submit", function (e) {
       e.preventDefault();
 
-      let name = document.getElementById("name").value;
-      let email = document.getElementById("email").value;
-      let eventId = new URLSearchParams(window.location.search).get("id");
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      const eventId = new URLSearchParams(window.location.search).get("id");
+      let events = JSON.parse(localStorage.getItem("events")) || [];
 
       if (!name || !email) {
         alert("Name and Email are required!");
         return;
       }
 
-      let registrations =
-        JSON.parse(localStorage.getItem("registrations")) || [];
-      registrations.push({ eventId, name, email });
+      events = events.map((event) =>
+        event.id == eventId ? { ...event, isRegistered: true } : event
+      );
 
-      localStorage.setItem("registrations", JSON.stringify(registrations));
+      localStorage.setItem("events", JSON.stringify(events));
       alert("You have successfully registered for the event!");
       window.location.href = "index.html";
     });
@@ -186,13 +163,12 @@ if (location.pathname.includes("feedback.html")) {
     .addEventListener("submit", function (e) {
       e.preventDefault();
 
-      let name = document.getElementById("name").value;
-      let comment = document.getElementById("comment").value;
-      let eventId = new URLSearchParams(window.location.search).get("id");
+      const name = document.getElementById("name").value;
+      const comment = document.getElementById("comment").value;
+      const eventId = new URLSearchParams(window.location.search).get("id");
+      const feedbackList = JSON.parse(localStorage.getItem("feedback")) || [];
 
-      let feedbackList = JSON.parse(localStorage.getItem("feedback")) || [];
       feedbackList.push({ eventId, name, rating, comment });
-
       localStorage.setItem("feedback", JSON.stringify(feedbackList));
       alert("Thanks for your feedback!");
       window.location.href = "index.html";
@@ -229,8 +205,8 @@ if (location.pathname.includes("feedbacks.html")) {
 
       feedbackContainer.classList.add("d-grid", "gap-2", "feedback-container");
       feedbacks.forEach((feedback) => {
-        let feedbackCard = document.createElement("div");
-        let event = JSON.parse(localStorage.getItem("events")).find(
+        const feedbackCard = document.createElement("div");
+        const event = JSON.parse(localStorage.getItem("events")).find(
           (event) => event.id == feedback.eventId
         );
         feedbackCard.className = "card";
@@ -263,7 +239,6 @@ if (location.pathname.includes("feedbacks.html")) {
         addRating();
       });
     }
-
     displayFeedbacks();
   });
 }

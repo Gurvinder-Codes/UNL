@@ -33,7 +33,7 @@
         </div>
 
         <div class="mb-3">
-          <label class="form-label">Date</label>
+          <label for="date" class="form-label">Date</label>
           <input
             type="date"
             class="form-control"
@@ -44,7 +44,18 @@
         </div>
 
         <div class="mb-3">
-          <label class="form-label">Location</label>
+          <label for="imageURL" class="form-label">Event Image URL</label>
+          <input
+            type="text"
+            class="form-control"
+            id="imageURL"
+            placeholder="Event Image URL"
+            required
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="location" class="form-label">Location</label>
           <input
             type="text"
             class="form-control"
@@ -55,7 +66,7 @@
         </div>
 
         <div class="mb-3">
-          <label class="form-label">Description</label>
+          <label for="description" class="form-label">Description</label>
           <textarea
             id="description"
             class="form-control"
