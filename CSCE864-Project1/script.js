@@ -1,4 +1,8 @@
-if (location.pathname === "/" || location.pathname.includes("index.html")) {
+if (
+  location.pathname === "/" ||
+  location.pathname === "/UNL/CSCE864-Project1/" ||
+  location.pathname.includes("index.html")
+) {
   document.addEventListener("DOMContentLoaded", function () {
     const eventContainer = document.getElementById("event-container");
     const regEventContainer = document.getElementById("reg-event-container");
