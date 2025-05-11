@@ -14,29 +14,19 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
     />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="assets/css/style.css" />
   </head>
   <body class="text-bg-dark">
     <header
-      class="d-flex justify-content-between align-items-center p-2 m-2 border rounded flex-wrap"
+      class="d-flex justify-content-between align-items-center p-2 m-2 border rounded flex-wrap gap-2"
     >
-      <h1 class="h1">Give Feedback</h1>
+      <h1 class="h1">Event Management Platform</h1>
       <a href="index.html" class="btn btn-primary">Back to Home</a>
     </header>
 
-    <section class="m-auto mt-4 feedback-form-section">
+    <section class="m-auto mt-4 form-container">
+      <h2 class="text-center fs-1 m-4">Give Feedback</h2>
       <form id="feedback-form" class="border border-1 m-2 p-2 rounded">
-        <div class="mb-3">
-          <label class="form-label" for="name">Name</label>
-          <input
-            type="text"
-            id="name"
-            class="form-control"
-            placeholder="Your Name"
-            required
-          />
-        </div>
-
         <div class="mb-3">
           <label class="form-label">Rating</label>
           <div class="rating-container">
@@ -72,6 +62,8 @@
           <label class="form-label" for="comment">Comments</label>
           <textarea
             id="comment"
+            name="comment"
+            maxlength="500"
             class="form-control"
             placeholder="Your Feedback"
             required
@@ -84,6 +76,6 @@
       </form>
     </section>
 
-    <script src="script.js"></script>
+    <script src="assets/js/script.js"></script>
   </body>
 </html>

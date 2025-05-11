@@ -10,22 +10,24 @@
       integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="assets/css/style.css" />
   </head>
   <body class="text-bg-dark">
     <header
-      class="d-flex justify-content-between align-items-center p-2 m-2 border rounded flex-wrap"
+      class="d-flex justify-content-between align-items-center p-2 m-2 border rounded flex-wrap gap-2"
     >
-      <h1 class="h1">Create an Event</h1>
+      <h1 class="h1">Event Management Platform</h1>
       <a href="index.html" class="btn btn-primary">Back to Home</a>
     </header>
-    <section class="create-event-container m-auto mt-4">
+    <section class="form-container m-auto mt-4">
+      <h2 class="text-center fs-1 m-4">Create Event</h2>
       <form id="event-form" class="border border-1 rounded m-2 p-2">
         <div class="mb-3">
           <label for="title" class="form-label">Title</label>
           <input
             type="text"
             class="form-control"
+            maxlength="100"
             id="title"
             placeholder="Event Title"
             required
@@ -48,6 +50,7 @@
           <input
             type="text"
             class="form-control"
+            maxlength="100"
             id="imageURL"
             placeholder="Event Image URL"
             required
@@ -59,6 +62,7 @@
           <input
             type="text"
             class="form-control"
+            maxlength="100"
             id="location"
             placeholder="Event Location"
             required
@@ -70,6 +74,7 @@
           <textarea
             id="description"
             class="form-control"
+            maxlength="500"
             placeholder="Event Description"
             required
           ></textarea>
@@ -81,6 +86,6 @@
       </form>
     </section>
 
-    <script src="script.js"></script>
+    <script src="assets/js/script.js"></script>
   </body>
 </html>

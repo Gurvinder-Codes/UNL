@@ -19,26 +19,15 @@
       <h1 class="h1">Event Management Platform</h1>
     </header>
     <section class="m-auto mt-4 form-container">
-      <h2 class="text-center fs-1 m-4">Sign Up</h2>
-      <form id="registerForm" class="border border-1 rounded m-2 p-2">
-        <div class="mb-3">
-          <label class="form-label" for="name">Name</label>
-          <input
-            type="text"
-            class="form-control"
-            name="name"
-            maxlength="100"
-            placeholder="Name"
-            required
-          />
-        </div>
+      <h2 class="text-center fs-1 m-4">Login</h2>
+      <form id="loginForm" class="border border-1 rounded m-2 p-2">
         <div class="mb-3">
           <label class="form-label" for="email">Email</label>
           <input
             type="email"
             class="form-control"
-            name="email"
             maxlength="100"
+            name="email"
             placeholder="Email"
             required
           />
@@ -47,7 +36,7 @@
           <label class="form-label" for="password">Password</label>
           <input
             type="password"
-            class="form-control mb-3"
+            class="form-control"
             maxlength="64"
             minlength="8"
             name="password"
@@ -56,10 +45,10 @@
           />
         </div>
         <button type="submit" class="btn btn-primary d-block ms-auto">
-          Register
+          Login
         </button>
-        <p id="registerMessage" class="my-2"></p>
-        <p>Already have an account? <a href="login.html">Log In</a></p>
+        <p id="loginMessage" class="my-2"></p>
+        <p>Don't have an account? <a href="register.html">Sign Up</a></p>
       </form>
     </section>
     <script src="assets/js/script.js"></script>

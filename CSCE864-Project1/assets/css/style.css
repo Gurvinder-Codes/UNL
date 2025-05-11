@@ -1,0 +1,41 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.card-container {
+  display: flex;
+  overflow-x: auto;
+}
+
+.form-container {
+  max-width: 500px;
+}
+
+.card {
+  min-width: 250px;
+  max-width: 250px;
+}
+
+.card-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.checked {
+  color: orange;
+}
+
+.event-img {
+  height: 200px;
+  border-top-left-radius: 0.375rem;
+  border-top-right-radius: 0.375rem;
+  object-fit: fill;
+}
+
+.event-description {
+  max-height: 75px;
+  overflow-x: auto;
+}
