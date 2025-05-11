@@ -10,14 +10,20 @@ if ($conn->connect_error) die("Connection failed");
 $name = $_POST['name'];
 $email = $_POST['email'];
 $password = $_POST['password'];
+$confirmPassword = $_POST['confirmPassword'];
 
-if (!$name || !$email || !$password) {
+if (!$name || !$email || !$password || !$confirmPassword) {
     echo "All fields are required.";
     exit;
 }
 
 if (strlen($password) < 8) {
     echo "Password must be at least 8 characters long.";
+    exit;
+}
+
+if ($password != $confirmPassword) {
+    echo "Passwords do not match.";
     exit;
 }
 
